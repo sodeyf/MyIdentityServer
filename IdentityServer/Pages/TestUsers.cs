@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Test;
+using Common;
 
 namespace IdentityServer;
 
@@ -17,44 +18,50 @@ public static class TestUsers
         {
             var address = new
             {
-                street_address = "One Hacker Way",
-                locality = "Heidelberg",
-                postal_code = "69118",
-                country = "Germany"
+                street_address = "Ferdows Blvd",
+                locality = "Tehran",
+                postal_code = "12121212",
+                country = "Iran"
             };
-                
+
             return new List<TestUser>
             {
                 new TestUser
                 {
                     SubjectId = "1",
-                    Username = "alice",
-                    Password = "alice",
+                    Username = "sodeyf",
+                    Password = "1",
                     Claims =
                     {
-                        new Claim(JwtClaimTypes.Name, "Alice Smith"),
-                        new Claim(JwtClaimTypes.GivenName, "Alice"),
-                        new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                        new Claim(JwtClaimTypes.Email, "AliceSmith@email.com"),
+                        new Claim(JwtClaimTypes.Name, "mohammad"),
+                        new Claim(JwtClaimTypes.GivenName, "javad"),
+                        new Claim(JwtClaimTypes.FamilyName, "qeidarlo"),
+                        new Claim(JwtClaimTypes.Email, "sodeyf@email.com"),
                         new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                        new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
-                        new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)
+                        new Claim(JwtClaimTypes.WebSite, "http://sodeyf.com"),
+                        new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json),
+
+                        new Claim(MyJwtClaimTypes.Nationalcode, "0320227561"),
+                        new Claim(MyJwtClaimTypes.PersianBirthdate, "1362/08/04"),
                     }
                 },
                 new TestUser
                 {
                     SubjectId = "2",
-                    Username = "bob",
-                    Password = "bob",
+                    Username = "ali",
+                    Password = "1",
                     Claims =
                     {
-                        new Claim(JwtClaimTypes.Name, "Bob Smith"),
-                        new Claim(JwtClaimTypes.GivenName, "Bob"),
-                        new Claim(JwtClaimTypes.FamilyName, "Smith"),
-                        new Claim(JwtClaimTypes.Email, "BobSmith@email.com"),
+                        new Claim(JwtClaimTypes.Name, "ali"),
+                        new Claim(JwtClaimTypes.GivenName, "alireza"),
+                        new Claim(JwtClaimTypes.FamilyName, "qeidarlo"),
+                        new Claim(JwtClaimTypes.Email, "ali@email.com"),
                         new Claim(JwtClaimTypes.EmailVerified, "true", ClaimValueTypes.Boolean),
-                        new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
-                        new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json)
+                        new Claim(JwtClaimTypes.WebSite, "http://ali.com"),
+                        new Claim(JwtClaimTypes.Address, JsonSerializer.Serialize(address), IdentityServerConstants.ClaimValueTypes.Json),
+
+                        new Claim(MyJwtClaimTypes.Nationalcode, "0112355779"),
+                        new Claim(MyJwtClaimTypes.PersianBirthdate, "1387/08/04"),
                     }
                 }
             };

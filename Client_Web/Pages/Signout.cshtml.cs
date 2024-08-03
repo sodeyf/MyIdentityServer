@@ -1,4 +1,4 @@
-using Client_Web.Helpers;
+using Common;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,7 +9,7 @@ namespace MyApp.Namespace
     {
         public IActionResult OnGet()
         {
-            return SignOut(CookieAuthenticationDefaults.AuthenticationScheme, MyConstants.AuthenticationScheme);
+            return SignOut(CookieAuthenticationDefaults.AuthenticationScheme, MyIdentityServerConstants.MyAuthenticationScheme);
         }
     }
 }

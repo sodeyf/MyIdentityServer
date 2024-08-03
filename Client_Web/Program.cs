@@ -1,4 +1,5 @@
-using Client_Web.Helpers;
+using Common;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
@@ -10,11 +11,11 @@ builder.Services
     .AddAuthentication(options =>
      {
          options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-         options.DefaultChallengeScheme = MyConstants.AuthenticationScheme;
+         options.DefaultChallengeScheme = MyIdentityServerConstants.MyAuthenticationScheme;
 
      })
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddOpenIdConnect(MyConstants.AuthenticationScheme, options =>
+    .AddOpenIdConnect(MyIdentityServerConstants.MyAuthenticationScheme, options =>
     {
         //options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.Authority = "https://localhost:7001";
@@ -26,6 +27,12 @@ builder.Services
         options.Scope.Clear();
         options.Scope.Add("openid");
         options.Scope.Add("profile");
+
+        // ...
+        options.Scope.Add(MyIdentityServerConstants.MyStandardScopes.PersianProfile);
+        options.ClaimActions.MapJsonKey(MyJwtClaimTypes.Nationalcode, MyJwtClaimTypes.PersianBirthdate);
+        // ...
+
         options.GetClaimsFromUserInfoEndpoint = true;
 
         options.MapInboundClaims = false;
