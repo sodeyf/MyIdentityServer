@@ -1,4 +1,4 @@
-﻿namespace Common
+﻿namespace Common.MyConstants
 {
     public static class MyIdentityServerConstants
     {

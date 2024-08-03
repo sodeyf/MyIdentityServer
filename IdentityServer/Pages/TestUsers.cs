@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Test;
-using Common;
+using Common.MyConstants;
 
 namespace IdentityServer;
 

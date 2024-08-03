@@ -1,4 +1,4 @@
-﻿using Common;
+﻿using Common.MyConstants;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 using IdentityModel;
@@ -80,10 +80,13 @@ public static class Config
                     AllowedGrantTypes = GrantTypes.Code,
             
                     // where to redirect to after login
-                    RedirectUris = { "https://localhost:7003/signin-oidc" },
+                    RedirectUris = { $"{MyUrls.WebClient}/signin-oidc" },
 
                     // where to redirect to after logout
-                    PostLogoutRedirectUris = { "https://localhost:7003/signout-callback-oidc" },
+                    PostLogoutRedirectUris = { $"{MyUrls.WebClient}/signout-callback-oidc" },
+
+                    // allow the web client to request a refresh token
+                    AllowOfflineAccess = true,
 
                     AllowedScopes =
                     {

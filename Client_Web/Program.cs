@@ -1,4 +1,3 @@
-using Common;
 using Common.MyConstants;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -31,6 +30,9 @@ builder.Services
 
         options.Scope.Add("api1");
 
+        //refresh token
+        options.Scope.Add("offline_access");
+
         // ...
         options.Scope.Add(MyIdentityServerConstants.MyStandardScopes.PersianProfile);
         options.ClaimActions.MapJsonKey(MyJwtClaimTypes.Nationalcode, MyJwtClaimTypes.PersianBirthdate);
@@ -43,6 +45,16 @@ builder.Services
 
         options.SaveTokens = true;
     });
+
+// refresh token
+builder.Services.AddOpenIdConnectAccessTokenManagement();
+
+// Using a Named HttpClient
+builder.Services.AddUserAccessTokenHttpClient(MyOtherConstants.ApiResourceClient, configureClient: client =>
+{
+    client.BaseAddress = new Uri(MyUrls.ApiResource);
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

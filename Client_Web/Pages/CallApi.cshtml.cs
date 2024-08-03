@@ -1,26 +1,36 @@
 using Common.MyConstants;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Net.Http.Headers;
+using System.Net.Http;
 using System.Text.Json;
 
 namespace MyApp.Namespace
 {
-    public class CallApiModel : PageModel
+    public class CallApiModel(IHttpClientFactory httpClientFactory) : PageModel
     {
         public string Json = string.Empty;
         public async Task OnGet()
         {
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            var content = await client.GetStringAsync($"{MyUrls.ApiResource}/identity");
+            //---------------------- method 1
+            var tokenInfo = await HttpContext.GetUserAccessTokenAsync();
+            var client1 = new HttpClient();
+            client1.SetBearerToken(tokenInfo.AccessToken!);
 
-            var parsed = JsonDocument.Parse(content);
-            var formatted = JsonSerializer.Serialize(parsed, new JsonSerializerOptions { WriteIndented = true });
+            var content1 = await client1.GetStringAsync($"{MyUrls.ApiResource}/identity");
 
-            Json = formatted;
+            var parsed1 = JsonDocument.Parse(content1);
+            var formatted1 = JsonSerializer.Serialize(parsed1, new JsonSerializerOptions { WriteIndented = true });
+
+            //--------------------- method 2
+            var client2 = httpClientFactory.CreateClient(MyOtherConstants.ApiResourceClient);
+
+            var content2 = await client2.GetStringAsync($"{MyUrls.ApiResource}/identity");
+
+            var parsed2 = JsonDocument.Parse(content2);
+            var formatted2 = JsonSerializer.Serialize(parsed2, new JsonSerializerOptions { WriteIndented = true });
+
+            Json = formatted2;
         }
     }
 }
