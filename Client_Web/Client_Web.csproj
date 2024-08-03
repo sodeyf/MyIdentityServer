@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Index.cshtml~RF228a4edc.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.7" />
     <PackageReference Include="Microsoft.Identity.Web" Version="3.0.1" />
   </ItemGroup>

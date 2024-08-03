@@ -26,6 +26,7 @@ public static class Config
     public static IEnumerable<Client> Clients =>
         new Client[]
             {
+                //--------------------------------------------------------------- machine to machine client (from quickstart 1)
                  new Client
                 {
                     ClientId = "client1",
@@ -58,6 +59,7 @@ public static class Config
                     // scopes that client has access to
                     AllowedScopes = { "api3", "api4", "api5", "api6", "api7", "api8", "api9" }
                 },
+                //------------------------------------------------------------------------------------------
                 // interactive ASP.NET Core Web App
                 new Client
                 {

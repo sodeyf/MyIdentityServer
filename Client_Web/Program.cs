@@ -1,3 +1,4 @@
+using Client_Web.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
@@ -8,15 +9,12 @@ builder.Services.AddRazorPages();
 builder.Services
     .AddAuthentication(options =>
      {
-         //options.DefaultAuthenticateScheme = OpenIdConnectDefaults.AuthenticationScheme;
-         //options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-
          options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-         options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+         options.DefaultChallengeScheme = MyConstants.AuthenticationScheme;
 
      })
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddOpenIdConnect(options =>
+    .AddOpenIdConnect(MyConstants.AuthenticationScheme, options =>
     {
         //options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
         options.Authority = "https://localhost:7001";
@@ -28,6 +26,7 @@ builder.Services
         options.Scope.Clear();
         options.Scope.Add("openid");
         options.Scope.Add("profile");
+        options.GetClaimsFromUserInfoEndpoint = true;
 
         options.MapInboundClaims = false;
         options.DisableTelemetry = true;
