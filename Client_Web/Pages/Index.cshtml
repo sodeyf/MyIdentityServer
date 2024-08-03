@@ -1,0 +1,27 @@
+﻿@page
+@model IndexModel
+
+@using Microsoft.AspNetCore.Authentication
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Claims</h1>
+    <dl>
+        @foreach (var claim in User.Claims)
+        {
+            <dt>@claim.Type</dt>
+            <dt>@claim.Value</dt>
+        }
+    </dl>
+
+    <h2>Properites</h2>
+    <dl>
+        @foreach (var prop in (await HttpContext.AuthenticateAsync()).Properties!.Items)
+        {
+            <dt>@prop.Key</dt>
+            <dt>@prop.Value</dt>
+        }
+    </dl>
+</div>
