@@ -2,6 +2,7 @@ using Common.MyConstants;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.IdentityModel.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,8 @@ builder.Services
         options.DisableTelemetry = true;
 
         options.SaveTokens = true;
+
+        IdentityModelEventSource.ShowPII = true;
     });
 
 // refresh token
