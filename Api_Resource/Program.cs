@@ -1,3 +1,4 @@
+using Common.MyConstants;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -5,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication()
     .AddJwtBearer(options =>
     {
-        options.Authority = "https://localhost:7001";
+        options.Authority = MyUrls.IdentityServer;
         options.TokenValidationParameters.ValidateAudience = false;
     });
 builder.Services.AddAuthorization(options =>

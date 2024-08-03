@@ -1,4 +1,5 @@
 using Common;
+using Common.MyConstants;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -18,7 +19,7 @@ builder.Services
     .AddOpenIdConnect(MyIdentityServerConstants.MyAuthenticationScheme, options =>
     {
         //options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.Authority = "https://localhost:7001";
+        options.Authority = MyUrls.IdentityServer;
 
         options.ClientId = "web";
         options.ClientSecret = "secret";
@@ -27,6 +28,8 @@ builder.Services
         options.Scope.Clear();
         options.Scope.Add("openid");
         options.Scope.Add("profile");
+
+        options.Scope.Add("api1");
 
         // ...
         options.Scope.Add(MyIdentityServerConstants.MyStandardScopes.PersianProfile);

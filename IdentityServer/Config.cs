@@ -89,7 +89,9 @@ public static class Config
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        MyIdentityServerConstants.MyStandardScopes.PersianProfile
+                        MyIdentityServerConstants.MyStandardScopes.PersianProfile,
+
+                        "api1"
                     }
                 }
             };

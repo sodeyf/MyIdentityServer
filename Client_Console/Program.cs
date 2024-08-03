@@ -1,10 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
+using Common.MyConstants;
 using IdentityModel.Client;
 using System.Text.Json;
 
 var client = new HttpClient();
-var disco = await client.GetDiscoveryDocumentAsync("https://localhost:7001");
+var disco = await client.GetDiscoveryDocumentAsync(MyUrls.IdentityServer);
 if (disco.IsError)
 {
     Console.WriteLine(disco.Error);
@@ -45,7 +46,7 @@ if (tokenResponse.IsError)
 var apiClient = new HttpClient();
 apiClient.SetBearerToken(tokenResponse.AccessToken!); // AccessToken is always non-null when IsError is false
 
-var response = await apiClient.GetAsync("https://localhost:7002/identity");
+var response = await apiClient.GetAsync($"{MyUrls.ApiResource}/identity");
 if (!response.IsSuccessStatusCode)
 {
     Console.WriteLine(response.StatusCode);
