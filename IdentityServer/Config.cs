@@ -96,6 +96,32 @@ public static class Config
 
                         "api1"
                     }
+                },
+                //--------------------------------------------------------------------------------------------
+                new Client
+                {
+                    ClientId = "dashboard",
+                    ClientSecrets = { new Secret("dashboard_ttac_secret".Sha256()) },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+            
+                    // where to redirect to after login
+                    RedirectUris = { $"{MyUrls.DashboardClient}/signin-oidc" },
+
+                    // where to redirect to after logout
+                    PostLogoutRedirectUris = { $"{MyUrls.DashboardClient}/signout-callback-oidc" },
+
+                    // allow the web client to request a refresh token
+                    AllowOfflineAccess = true,
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        MyIdentityServerConstants.MyStandardScopes.PersianProfile,
+
+                        "api1"
+                    }
                 }
             };
 }
