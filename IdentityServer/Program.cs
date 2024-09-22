@@ -1,4 +1,4 @@
-﻿using IdentityServer;
+﻿using IdentityServer.Extentions;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration()
@@ -19,7 +19,12 @@ try
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();
-    
+
+    //builder.Services
+    //    .InjectRazorPagesAndApi()
+    //    .InjectUnitOfWork()
+    //    .InjectIdp(builder.Configuration);
+
     app.Run();
 }
 catch (Exception ex)

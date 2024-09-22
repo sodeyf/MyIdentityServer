@@ -5,36 +5,42 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Logging;
 using Serilog;
 
-namespace IdentityServer;
+namespace IdentityServer.Extentions;
 
 internal static class HostingExtensions
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
-        // uncomment if you want to add a UI
-        builder.Services.AddRazorPages();
+        builder.Services.InjectRazorPagesAndApi()
+                        .InjectUnitOfWork()
+                        .InjectIdp(builder.Configuration);
 
-        var migrationsAssembly = typeof(Program).Assembly.GetName().Name;
-        builder.Services.AddIdentityServer(options =>
-            {
-                // https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/api_scopes#authorization-based-on-scopes
-                options.EmitStaticAudienceClaim = true;
-            })
 
-            //.AddInMemoryIdentityResources(Config.IdentityResources)
-            //.AddInMemoryApiScopes(Config.ApiScopes)
-            //.AddInMemoryClients(Config.Clients)
-            .AddConfigurationStore(options =>
-            {
-                options.ConfigureDbContext = b => b.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                    sql => sql.MigrationsAssembly(migrationsAssembly));
-            })
-            .AddOperationalStore(options =>
-            {
-                options.ConfigureDbContext = b => b.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
-                    sql => sql.MigrationsAssembly(migrationsAssembly));
-            })
-            .AddTestUsers(TestUsers.Users);
+
+
+
+        //builder.Services.InjectIdp(builder.Configuration);
+
+        //builder.Services.AddIdentityServer(options =>
+        //    {
+        //        // https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/api_scopes#authorization-based-on-scopes
+        //        options.EmitStaticAudienceClaim = true;
+        //    })
+
+        //    //.AddInMemoryIdentityResources(Config.IdentityResources)
+        //    //.AddInMemoryApiScopes(Config.ApiScopes)
+        //    //.AddInMemoryClients(Config.Clients)
+        //    .AddConfigurationStore(options =>
+        //    {
+        //        options.ConfigureDbContext = b => b.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        //            sql => sql.MigrationsAssembly(migrationsAssembly));
+        //    })
+        //    .AddOperationalStore(options =>
+        //    {
+        //        options.ConfigureDbContext = b => b.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+        //            sql => sql.MigrationsAssembly(migrationsAssembly));
+        //    })
+        //    .AddTestUsers(TestUsers.Users);
 
 
 
