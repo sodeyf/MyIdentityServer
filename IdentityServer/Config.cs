@@ -85,6 +85,12 @@ public static class Config
                     // where to redirect to after logout
                     PostLogoutRedirectUris = { $"{MyUrls.WebClient}/signout-callback-oidc" },
 
+                    //For flutter[Mehdi.zarei]
+                    AllowedCorsOrigins = {
+                        "http://192.168.0.116:6900",
+                        "http://localhost:6900"
+                    },
+
                     // allow the web client to request a refresh token
                     AllowOfflineAccess = true,
 

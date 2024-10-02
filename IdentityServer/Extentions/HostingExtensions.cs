@@ -13,6 +13,18 @@ internal static class HostingExtensions
     {
         builder.Services.InjectRazorPagesAndApi()
                         .InjectUnitOfWork()
+                        .AddCors(options =>
+                        {
+                            options.AddPolicy("AllowFlutterOrigins", policy =>
+                            {
+                                policy.WithOrigins(
+                                        "http://192.168.0.116:6900",
+                                        "http://localhost:6900")
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod()
+                                      .AllowCredentials();
+                            });
+                        })
                         .InjectIdp(builder.Configuration);
 
 
@@ -49,6 +61,9 @@ internal static class HostingExtensions
 
     public static WebApplication ConfigurePipeline(this WebApplication app)
     {
+        // Use CORS for flutter
+        app.UseCors("AllowFlutterOrigins");
+
         app.UseSerilogRequestLogging();
 
         if (app.Environment.IsDevelopment())
