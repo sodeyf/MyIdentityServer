@@ -80,10 +80,18 @@ public static class Config
                     AllowedGrantTypes = GrantTypes.Code,
             
                     // where to redirect to after login
-                    RedirectUris = { $"{MyUrls.WebClient}/signin-oidc" },
+                    RedirectUris = {
+                        $"{MyUrls.WebClient}/signin-oidc",
+                        "http://localhost:6900/signin-oidc",
+                        "http://192.168.0.116:6900/signin-oidc"
+                    },
 
                     // where to redirect to after logout
-                    PostLogoutRedirectUris = { $"{MyUrls.WebClient}/signout-callback-oidc" },
+                    PostLogoutRedirectUris = {
+                        $"{MyUrls.WebClient}/signout-callback-oidc",
+                        "http://localhost:6900/signout-callback-oidc",
+                        "http://192.168.0.116:6900/signout-callback-oidc"
+                    },
 
                     //For flutter[Mehdi.zarei]
                     AllowedCorsOrigins = {
