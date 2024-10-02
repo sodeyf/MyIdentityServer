@@ -13,6 +13,7 @@ internal static class HostingExtensions
     {
         builder.Services.InjectRazorPagesAndApi()
                         .InjectUnitOfWork()
+
                         .AddCors(options =>
                         {
                             options.AddPolicy("AllowFlutterOrigins", policy =>

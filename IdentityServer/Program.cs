@@ -16,6 +16,15 @@ try
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
 
+    // Add Serilog configuration
+    Log.Logger = new LoggerConfiguration()
+        .MinimumLevel.Debug() // Set the log level
+        .WriteTo.Console()    // Write logs to the console
+        .WriteTo.File("Logs/log-.txt", rollingInterval: RollingInterval.Day) // Write logs to a file
+        .CreateLogger();
+
+    builder.Host.UseSerilog();  // Use Serilog for logging
+
     var app = builder
         .ConfigureServices()
         .ConfigurePipeline();

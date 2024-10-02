@@ -82,8 +82,8 @@ public static class Config
                     // where to redirect to after login
                     RedirectUris = {
                         $"{MyUrls.WebClient}/signin-oidc",
-                        "http://localhost:6900/signin-oidc",
-                        "http://192.168.0.116:6900/signin-oidc"
+                        "http://localhost:6900/callback.html",
+                        "http://192.168.0.116:6900/callback.html"
                     },
 
                     // where to redirect to after logout
